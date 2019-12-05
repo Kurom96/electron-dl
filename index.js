@@ -104,7 +104,11 @@ function registerListener(session, options, cb = () => {}) {
 				}
 			} else if (state === 'interrupted') {
 				const message = pupa(errorMessage, {filename: item.getFilename()});
-				dialog.showErrorBox(errorTitle, message);
+
+				if (options.showError) {
+					dialog.showErrorBox(errorTitle, message);
+				}
+
 				cb(new Error(message));
 			} else if (state === 'completed') {
 				if (process.platform === 'darwin') {
